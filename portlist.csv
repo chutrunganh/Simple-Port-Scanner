@@ -1,0 +1,100 @@
+80,World Wide Web HTTP
+23,Telnet
+443,Secure HTTP (SSL)
+21,File Transfer [Control]
+22,Secure Shell Login
+25,Simple Mail Transfer
+3389,Microsoft Remote Display Protocol
+110,Post Office Protocol – Version 3
+445,SMB directly over IP
+139,NETBIOS Session Service
+143,Internet Message Access Protocol
+53,Domain Name Server
+135,Microsoft RPC
+3306,MySQL
+8080,HTTP Alternate (see port 80)
+1723,Point-to-Point Tunneling Protocol
+111,SUN Remote Procedure Call
+995,POP3 over TLS/SSL
+993,IMAP over TLS/SSL
+5900,Remote Framebuffer
+1025,Network Blackjack
+587,Message Submission
+8888,DDI-,-1
+199,SNMP Unix Multiplexer
+1720,H.323 Call Control
+465,SMTP over TLS/SSL
+548,Apple Filing Protocol
+113,Authentication Service
+81,HOSTS2 Name Server
+6001,X Window Server
+1993,SNMP Unix Multiplexer
+514,Command Like Exec
+5060,Session Initiation Protocol
+179,Border Gateway Protocol
+1026,nterm Remote Login Network Terminal
+2000,Skinny Client Control Protocol
+8443,PCsync HTTPS
+8000,iRDMI
+32768,Filenet TMS
+554,Real Time Streaming Protocol
+26,RSFTP
+1433,Microsoft-SQL-Server
+49152,Unknown
+2001,Wizard
+515,Spooler
+8008,HTTP Alternate
+49154,Unknown
+1027,6a44
+5666,Nagios NRPE
+646,Label Distribution
+5000,Universal PnP, Free Internet Chess Server
+5631,PCAnywhere
+631,Internet Printing Protocol
+49153,Unknown
+8081,ICECap User Console
+2049,Networked File System
+88,Kerberos
+79,Finger
+5800,Virtual Network Computer HTTP Access
+106,Eudora Compatible PW Changer
+2121,CCProxy FTP Proxy
+1110,NFSd Keepalive
+49155,Unknown
+6000,X Window Server
+513,BSD rlogind
+990,FTP over TLS/SSL
+5357,Web Services for Devices
+427,Server Location
+49156,Unknown
+543,Kerberos
+544,Kerberos
+5101,Talarian-UDP
+144,NewS Window System
+7,Echo
+389,Lightweight Directory Access Protocol
+8009,Apache JServ Protocol
+3128,Active API Server Port
+444,Simple Network Paging Protocol
+9999,Abyss Web Server
+5009,Apple Airport Admin
+7070,ARCP
+5190,America-Online
+3000,User-Level PPP Daemon
+5432,PostgreSQL Database
+1900,SSDP
+3986,MAPPER Workstation Server
+13,Daytime
+1029,Solid Mux Server
+9,Sink Null
+5051,ITA Agent
+6646,Unknown
+49157,Unknown
+1028,Unknown
+873,Rsync Server
+1755,Windows Media Service
+2717,PN REQUESTER
+4899,Radmin Port
+9100,PDL Datastream
+119,Network News Transfer Protocol
+37,Timserver
