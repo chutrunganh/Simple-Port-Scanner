@@ -67,7 +67,7 @@ def normal_scan(target):
 
 # Scan in a port range
 def scan_in_port_range(target, start, end):
-    print('Scan for target: ' + YELLOW + target + RESET + 'in port range', start, 'to', end, '\n')
+    print('Scan for target: ' + YELLOW + target + RESET + ' in port range', start, 'to', end, '\n')
     for port in range(start, end + 1):
         thread = threading.Thread(target=check_port_is_open, args=(target, port))
         thread.start()
