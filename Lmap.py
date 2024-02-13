@@ -59,7 +59,7 @@ def check_port_is_open(target, port):
 
 # Scan the 20 most common ports
 def normal_scan(target):
-    print('Normal Scan scan for target:', target, 'in most 20 common ports', '\n')
+    print('Normal Scan scan for target: ' + YELLOW + target + RESET+  ' in most 20 common ports', '\n')
     mylist = [21, 22, 23, 25, 53, 80, 110, 111, 135, 139, 143, 443, 445, 993, 995, 1723, 3306, 3389, 5900, 8080]
     for port in mylist:
         thread = threading.Thread(target=check_port_is_open, args=(target, port))
@@ -67,7 +67,7 @@ def normal_scan(target):
 
 # Scan in a port range
 def scan_in_port_range(target, start, end):
-    print('Scan for target:', target, 'in port range', start, 'to', end, '\n')
+    print('Scan for target: ' + YELLOW + target + RESET + 'in port range', start, 'to', end, '\n')
     for port in range(start, end + 1):
         thread = threading.Thread(target=check_port_is_open, args=(target, port))
         thread.start()
