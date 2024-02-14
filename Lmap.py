@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+import time
 import socket
 import pyfiglet      # To print the logo
 import csv
@@ -41,8 +42,18 @@ def check_target(target):
 
     return target
 
+# Initialize scanData as a global variable
+scanData = ''
+
+# Save scan data to a file
+def save_to_file(scanData):
+    with open('scan_data.txt',mode='w') as file:
+        file.write(scanData)
+
 # Check if the port is open
 def check_port_is_open(target, port):
+    global scanData  # Declare scanData as global
+
     # Create a socket object
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
     #AF_INET: Address Family, IPv4
@@ -53,6 +64,7 @@ def check_port_is_open(target, port):
     result = s.connect_ex((target, port))
     if result == 0:
         print(GREEN + "[*]" + RESET + 'Port ' + str(port) + ': ' + str(lookup_port_name(port)))
+        scanData += 'Port ' + str(port) + ' is open' + '\n'
     # else:
     #     print(RED + "[*]" + RESET + 'Port', port, ':', lookup_port_name(port))
     s.close()
@@ -61,20 +73,29 @@ def check_port_is_open(target, port):
 def normal_scan(target):
     print('Normal Scan scan for target: ' + YELLOW + target + RESET+  ' in most 20 common ports', '\n')
     mylist = [21, 22, 23, 25, 53, 80, 110, 111, 135, 139, 143, 443, 445, 993, 995, 1723, 3306, 3389, 5900, 8080]
+    threads = []
     for port in mylist:
         thread = threading.Thread(target=check_port_is_open, args=(target, port))
         thread.start()
+        threads.append(thread)
+    for thread in threads:
+        thread.join()
 
 # Scan in a port range
 def scan_in_port_range(target, start, end):
     print('Scan for target: ' + YELLOW + target + RESET + ' in port range', start, 'to', end, '\n')
+    threads = []
     for port in range(start, end + 1):
         thread = threading.Thread(target=check_port_is_open, args=(target, port))
         thread.start()
+        threads.append(thread)
+    for thread in threads:
+        thread.join()
 
 if __name__ == '__main__':
     print_intro()
-
+    start_time = time.time()  # Start time
+    
     #Read the options from the command line
     options = sys.argv[1] if len(sys.argv) > 1 else None
 
@@ -108,5 +129,14 @@ OPTIONS:
         start, end = map(int, sys.argv[2].split('-')) if len(sys.argv) > 3 else (None, None)
         if start is not None and end is not None:
             scan_in_port_range(target, start, end)
+
+    #Ask the user if they want to save the scan data to a file
+    saveFileOrNot = input('Do you want to save the scan data to a file? (Y/n) ')
+    if saveFileOrNot == 'Y':
+        save_to_file(scanData)
+
+    #need to add:
+        # scan_data.txt file name base on time the scan taken
+        # add scan time duration
 
     sys.exit(0)
