@@ -59,6 +59,8 @@ def save_to_file(scanData):
         file.write('Scan data for target: ' + target + '\n')
 
         file.write(scanData)
+    
+    file.close()
 
 # Check if the port is open
 def check_port_is_open(target, port):
