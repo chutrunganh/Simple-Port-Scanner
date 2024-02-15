@@ -5,6 +5,7 @@ import socket
 import pyfiglet      # To print the logo
 import csv
 import threading     # To create multiple threads
+import geocoder      # To get the location of server by its IP
 
 # ANSI escape codes for text colors
 RED = '\033[91m'
@@ -47,7 +48,16 @@ scanData = ''
 
 # Save scan data to a file
 def save_to_file(scanData):
-    with open('scan_data.txt',mode='w') as file:
+    #The name of the file is base on the time the scan taken and the target IP
+    #the last argument in the command line is the target
+    target = sys.argv[-1] if len(sys.argv) > 2 else None
+    target = check_target(target)
+
+    dataFileName = 'scan_data_on_target_' + str(target) + '_at_' + time.strftime('%H-%M') + '.txt'
+    with open(dataFileName,mode='w') as file:
+        #write the ip address of the target to file fisrt
+        file.write('Scan data for target: ' + target + '\n')
+
         file.write(scanData)
 
 # Check if the port is open
@@ -69,9 +79,27 @@ def check_port_is_open(target, port):
     #     print(RED + "[*]" + RESET + 'Port', port, ':', lookup_port_name(port))
     s.close()
 
+# Print location of the server by its IP address if it is available
+def print_location(target):
+    #I do not know why working with localhost, the geocoder library only return the result if I use target IP
+    # as 'me' instead of '127.0.0.1'
+    if target == '127.0.0.1' :
+        target = 'me'
+
+    if geocoder.ip(target).city is not None:
+        print('Base on the IP address, the location of the server might be: ' + str(geocoder.ip(target).city) + ' city, at coordinate: ' + str(geocoder.ip(target).latlng[0]) + ', ' + str(geocoder.ip(target).latlng[1]) + '\n')
+    
+    #Note: I find that the geocoder library takes a quite long time to process => slow down the program, and it is not always accurate. As I experienced in
+    #my localtion, the coordinate deviation is about 3-4 km. So, this feature should be commented out if thi is not too useful for you.
+        
 # Scan the 20 most common ports
 def normal_scan(target):
     print('Normal Scan scan for target: ' + YELLOW + target + RESET+  ' in most 20 common ports', '\n')
+
+    # Get the location of the server by its IP address if it is available
+    print_location(target)
+    
+    # List of the 20 most common ports
     mylist = [21, 22, 23, 25, 53, 80, 110, 111, 135, 139, 143, 443, 445, 993, 995, 1723, 3306, 3389, 5900, 8080]
     threads = []
     for port in mylist:
@@ -84,6 +112,10 @@ def normal_scan(target):
 # Scan in a port range
 def scan_in_port_range(target, start, end):
     print('Scan for target: ' + YELLOW + target + RESET + ' in port range', start, 'to', end, '\n')
+
+     # Get the location of the server by its IP address if it is available
+    print_location(target)
+    
     threads = []
     for port in range(start, end + 1):
         thread = threading.Thread(target=check_port_is_open, args=(target, port))
@@ -130,13 +162,15 @@ OPTIONS:
         if start is not None and end is not None:
             scan_in_port_range(target, start, end)
 
+
+    end_time = time.time()  # End time
+    print('Scan complete in:', round(end_time - start_time,4), 'seconds')
+
     #Ask the user if they want to save the scan data to a file
     saveFileOrNot = input('Do you want to save the scan data to a file? (Y/n) ')
-    if saveFileOrNot == 'Y':
+    if saveFileOrNot == 'Y' or saveFileOrNot == 'y':
         save_to_file(scanData)
+        print('Scan data saved to file')
 
-    #need to add:
-        # scan_data.txt file name base on time the scan taken
-        # add scan time duration
 
     sys.exit(0)
