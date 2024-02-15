@@ -148,6 +148,7 @@ OPTIONS:
   -r: Perform a scan within a port range. Specify the range as -r start-end
 
         ''')
+        sys.exit(0)
     elif options == '-n':
         #Read the target from the command line
 		#the last argument in the command line is the target
