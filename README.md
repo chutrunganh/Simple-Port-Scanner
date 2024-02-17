@@ -85,7 +85,7 @@ options = sys.argv[1] if len(sys.argv) > 1 else None
 ```
 Based on the chosen option, the main program calls relevant functions. In the example, the normal scan mode is used.
 
-In this mode, the initial step is to read the target parameter. The target should ideally be an IP address. Therefore, I check whether it is an IP address. If it is still a name, I convert it back to an IP using ```socket.gethostbyname()```:
+In this mode, the initial step is to read the target parameter. The target should ideally be an IP address. Therefore, I check whether it is an IP address. If it is still a name, I convert it back to an IP using ```socket.gethostbyname()``` inside ```check_target()``` function:
 
 ```python
 #the last argument in the command line is the target
