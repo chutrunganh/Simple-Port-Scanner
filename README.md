@@ -124,9 +124,7 @@ def check_port_is_open(target, port):
     #     print(RED + "[*]" + RESET + 'Port', port, ':', lookup_port_name(port))
     s.close()
 ```
-I use a socket to establish a connection to each port, specifying the parameters for the TCP three-way handshake connection. Based on the returned result, we determine the state of the port. 
-
-- Once we identify an open port, we look up the port number in ```portlist.csv``` to find the corresponding name or service.
+I use a socket to establish a connection to each port, specifying the parameters for the TCP three-way handshake connection. Based on the returned result, we determine the state of the port. Once we identify an open port, we look up the port number in ```portlist.csv``` to find the corresponding name or service with ```lookup_port_name()``` function.
 
 
 However, if we use a for loop to sequentially scan each port, it could significantly slow down the scanning process. Therefore, I employ multi-threading from the ```thread``` library to scan ports simultaneously.
