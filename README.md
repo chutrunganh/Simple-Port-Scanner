@@ -88,6 +88,7 @@ Based on the chosen option, the main program calls relevant functions. In the ex
 In this mode, the initial step is to read the target parameter. The target should ideally be an IP address. Therefore, I check whether it is an IP address. If it is still a name, I convert it back to an IP using ```socket.gethostbyname()```:
 
 ```python
+#the last argument in the command line is the target
 target = sys.argv[-1] if len(sys.argv) > 2 else None
 target = check_target(target)
 ```
