@@ -20,7 +20,7 @@ Example: ```./Lmap.py -r 50-100 scanme.org```
 
 Before running ./Lmap.py, make sure the main code file has permission to execute by:
 ```bash
- chmod +x LmapBeta.py
+ chmod +x Lmap.py
 ```
 ### Note
 You can use http://scanme.org/ as a practice target, a website provided by Nmap for experimentation. Avoid performing port scans on arbitrary servers, as this action may be considered illegal in some countries. Otherwhile, for experimental purposes in this project, I've created ```server.py``` that listens for requests on specified ports we can set.
